@@ -3,592 +3,652 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech Career Pathways</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <title>Career Pathways Map – Bristol Future Talent Partnership</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --bg: #f5f0ff;
-            --surface: #ffffff;
-            --text: #0a0a1a;
-            --muted: #6b6b8a;
-            --c1: #ff3cac;   /* pink */
-            --c2: #00d4ff;   /* cyan */
-            --c3: #7fff00;   /* lime */
-            --c4: #ff8c00;   /* orange */
-            --c5: #b44fff;   /* purple */
-            --c6: #00ffb3;   /* mint */
+            --pink:    #e4007c;
+            --cyan:    #00b5d8;
+            --yellow:  #f5c800;
+            --navy:    #0d1b2e;
+            --white:   #ffffff;
+            --offwhite:#f7f8fa;
+            --text:    #1a1a2e;
+            --muted:   #6b7a99;
+            --border:  rgba(0,0,0,0.08);
+
+            /* tier colours — pulled from brand palette */
+            --t1: #e4007c;   /* pink   – Entry */
+            --t2: #00b5d8;   /* cyan   – Foundation */
+            --t3: #7b2fbe;   /* purple – Intermediate */
+            --t4: #f5c800;   /* yellow – Advanced */
+            --t5: #0d1b2e;   /* navy   – Leadership */
         }
 
         body {
-            background: var(--bg);
+            background: transparent;
             color: var(--text);
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Nunito Sans', sans-serif;
             min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
         }
 
-        /* Colourful background blobs */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background:
-                    radial-gradient(ellipse 600px 400px at 10% 20%, rgba(255,60,172,0.12) 0%, transparent 70%),
-                    radial-gradient(ellipse 500px 350px at 90% 10%, rgba(0,212,255,0.12) 0%, transparent 70%),
-                    radial-gradient(ellipse 550px 400px at 80% 80%, rgba(127,255,0,0.10) 0%, transparent 70%),
-                    radial-gradient(ellipse 450px 300px at 5% 85%, rgba(180,79,255,0.12) 0%, transparent 70%),
-                    radial-gradient(ellipse 400px 300px at 50% 50%, rgba(255,140,0,0.06) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
+        /* ── HEADER ── */
+        .bftp-header {
+            background: var(--white);
+            border-bottom: 3px solid var(--pink);
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
-        header {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            padding: 3rem 2rem 1rem;
-        }
-
-        .eyebrow {
-            display: inline-flex;
+        .logo-mark {
+            display: flex;
             align-items: center;
             gap: 0.6rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--c1);
-            background: rgba(255,60,172,0.08);
-            border: 1px solid rgba(255,60,172,0.25);
-            padding: 0.35em 1em;
-            border-radius: 100px;
-            margin-bottom: 1.2rem;
-        }
-        .eyebrow::before { content: '//'; opacity: 0.5; }
-
-        h1 {
-            font-size: clamp(2rem, 6vw, 4rem);
-            font-weight: 700;
-            line-height: 1.05;
-            letter-spacing: -0.03em;
-            margin-bottom: 0.75rem;
+            text-decoration: none;
         }
 
-        h1 span.grad {
-            background: linear-gradient(90deg, var(--c1) 0%, var(--c5) 40%, var(--c2) 80%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .logo-icon {
+            width: 48px; height: 48px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--pink) 0%, var(--cyan) 100%);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
         }
 
-        .subtitle {
+        .logo-icon svg { width: 28px; height: 28px; }
+
+        .logo-text {
+            line-height: 1.1;
+        }
+        .logo-text strong {
+            display: block;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 900;
+            font-size: 0.95rem;
+            color: var(--navy);
+            letter-spacing: -0.01em;
+        }
+        .logo-text span {
+            font-size: 0.7rem;
             color: var(--muted);
-            font-size: 1rem;
-            font-weight: 400;
-            max-width: 520px;
-            margin: 0 auto 1.5rem;
-            line-height: 1.65;
+            font-weight: 600;
+            letter-spacing: 0.02em;
         }
 
-        /* LEGEND */
-        .legend {
-            display: flex;
-            justify-content: center;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-            padding: 0.5rem 2rem 1rem;
-            position: relative;
-            z-index: 2;
+        
+
+        .btn {
+            display: inline-block;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 0.9rem;
+            padding: 0.7em 1.8em;
+            border-radius: 100px;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.15s, box-shadow 0.15s;
+            letter-spacing: 0.01em;
         }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+        .btn-pink  { background: var(--pink);  color: white; }
+        .btn-cyan  { background: var(--cyan);  color: white; }
+        .btn-outline { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.5); }
+
+        .hero-btns { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+
+        /* ── LEGEND BAR ── */
+        .legend-bar {
+            background: transparent;
+            border-bottom: none; 
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .legend-label {
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-right: 0.25rem;
+        }
+
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 0.45rem;
-            font-size: 0.72rem;
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--muted);
-            background: white;
-            border: 1px solid rgba(0,0,0,0.08);
-            padding: 0.3em 0.85em;
-            border-radius: 100px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            gap: 0.4rem;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text);
         }
-        .legend-dot {
-            width: 8px; height: 8px;
+
+        .legend-pip {
+            width: 12px; height: 12px;
             border-radius: 50%;
             flex-shrink: 0;
         }
 
-        /* CANVAS */
-        .canvas-wrap {
-            position: relative;
-            width: 100%;
+        /* ── CANVAS SECTION ── */
+        .map-section {
+            padding: 2rem 1.5rem 1rem;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0.5rem 1.5rem 1rem;
-            z-index: 1;
         }
+
         #mapCanvas {
             display: block;
             width: 100%;
-            border-radius: 20px;
+            border-radius: 16px;
             background: white;
-            box-shadow:
-                    0 0 0 1px rgba(0,0,0,0.06),
-                    0 8px 40px rgba(0,0,0,0.08),
-                    0 2px 8px rgba(0,0,0,0.04);
+            box-shadow: 0 2px 24px rgba(0,0,0,0.08), 0 0 0 1px var(--border);
             cursor: grab;
         }
         #mapCanvas:active { cursor: grabbing; }
 
-        .hint {
-            text-align: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.68rem;
+        .hint-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 0.75rem 0 0.25rem;
+            font-size: 0.75rem;
             color: var(--muted);
-            padding: 0.75rem 0 2rem;
-            letter-spacing: 0.05em;
-            position: relative;
-            z-index: 2;
+            font-weight: 600;
         }
-        .hint em {
-            color: var(--c1);
-            font-style: normal;
+        .hint-bar span {
+            display: flex; align-items: center; gap: 0.35rem;
         }
+        .hint-bar svg { opacity: 0.5; }
 
-        /* OVERLAY */
+        /* ── OVERLAY + PANEL ── */
         .overlay {
             position: fixed; inset: 0;
-            background: rgba(10,10,26,0.45);
-            backdrop-filter: blur(4px);
+            background: rgba(13,27,46,0.55);
+            backdrop-filter: blur(3px);
             z-index: 99;
             opacity: 0; pointer-events: none;
-            transition: opacity 0.3s;
+            transition: opacity 0.25s;
         }
         .overlay.open { opacity: 1; pointer-events: all; }
 
-        /* PANEL */
         .info-panel {
             position: fixed;
             top: 50%; left: 50%;
-            transform: translate(-50%, -50%) scale(0.92) translateY(20px);
-            width: min(520px, 92vw);
+            transform: translate(-50%, -50%) scale(0.94) translateY(16px);
+            width: min(500px, 93vw);
             background: white;
-            border-radius: 20px;
-            padding: 2.25rem;
+            border-radius: 18px;
+            overflow: hidden;
             z-index: 100;
             opacity: 0; pointer-events: none;
-            transition: opacity 0.28s cubic-bezier(.4,0,.2,1), transform 0.28s cubic-bezier(.4,0,.2,1);
-            box-shadow: 0 24px 80px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.06);
+            transition: opacity 0.25s cubic-bezier(.4,0,.2,1), transform 0.25s cubic-bezier(.4,0,.2,1);
+            box-shadow: 0 32px 80px rgba(13,27,46,0.22);
         }
         .info-panel.open {
             opacity: 1; pointer-events: all;
             transform: translate(-50%, -50%) scale(1) translateY(0);
         }
 
-        .panel-stripe {
-            height: 4px;
-            border-radius: 100px;
-            margin-bottom: 1.5rem;
+        .panel-top {
+            padding: 1.75rem 1.75rem 1.25rem;
+            position: relative;
         }
 
-        .panel-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 1rem;
-            margin-bottom: 1rem;
+        .panel-close {
+            position: absolute;
+            top: 1.1rem; right: 1.1rem;
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.07);
+            border: none;
+            font-size: 1.1rem;
+            color: var(--muted);
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.15s;
+            line-height: 1;
         }
+        .panel-close:hover { background: rgba(0,0,0,0.14); color: var(--text); }
 
-        .panel-badge {
+        .panel-tier-badge {
             display: inline-flex;
             align-items: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            letter-spacing: 0.15em;
+            gap: 0.4rem;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 0.68rem;
             text-transform: uppercase;
-            padding: 0.3em 0.85em;
+            letter-spacing: 0.12em;
+            padding: 0.28em 0.9em;
             border-radius: 100px;
-            font-weight: 600;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.9rem;
         }
 
         .panel-title {
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 900;
+            font-size: 1.55rem;
             letter-spacing: -0.02em;
-            line-height: 1.2;
-            margin-bottom: 0.25rem;
+            line-height: 1.15;
+            margin-bottom: 0.3rem;
+            padding-right: 2.5rem;
         }
 
         .panel-level {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
+            font-weight: 700;
             color: var(--muted);
             margin-bottom: 1rem;
+            letter-spacing: 0.02em;
         }
 
         .panel-desc {
             font-size: 0.9rem;
             line-height: 1.75;
             color: #3a3a5c;
-            margin-bottom: 1.25rem;
-            border-left: 3px solid;
-            padding-left: 1rem;
         }
 
-        .panel-section-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            letter-spacing: 0.15em;
+        .panel-bottom {
+            background: var(--offwhite);
+            border-top: 1px solid var(--border);
+            padding: 1.25rem 1.75rem 1.5rem;
+        }
+
+        .panel-connections-label {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 0.68rem;
             text-transform: uppercase;
+            letter-spacing: 0.12em;
             color: var(--muted);
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.7rem;
         }
 
-        .connections-list {
+        .conn-pills {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
         }
 
         .conn-pill {
-            padding: 0.35em 1em;
-            border-radius: 100px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
             font-size: 0.78rem;
-            font-weight: 500;
-            border: 1.5px solid;
+            padding: 0.38em 1em;
+            border-radius: 100px;
+            border: 2px solid;
             cursor: pointer;
-            transition: all 0.15s;
+            transition: transform 0.12s, box-shadow 0.12s;
+            white-space: nowrap;
         }
         .conn-pill:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
         }
 
-        .close-btn {
-            width: 32px; height: 32px;
-            border-radius: 50%;
-            background: rgba(0,0,0,0.06);
-            border: none;
-            color: var(--muted);
-            font-size: 1.1rem;
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
-            transition: background 0.15s;
-            line-height: 1;
+        /* ── FOOTER ── */
+        footer {
+            background: var(--navy);
+            color: rgba(255,255,255,0.6);
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8rem;
+            margin-top: 3rem;
         }
-        .close-btn:hover { background: rgba(0,0,0,0.12); color: var(--text); }
+        footer strong { color: white; display: block; margin-bottom: 0.3rem; font-family:'Nunito';font-weight:900; }
+        footer a { color: var(--cyan); text-decoration: none; }
     </style>
 </head>
 <body>
-
-<header>
-    <p class="eyebrow">Technology &amp; Digital</p>
-    <h1>Career <span class="grad">Pathways</span> Map</h1>
-    <p class="subtitle">Explore the digital tech landscape — click any node to discover qualifications, roles, and where they can take you.</p>
-</header>
-
-<div class="legend">
-    <div class="legend-item"><div class="legend-dot" style="background:#ff3cac"></div>Foundations</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#00d4ff"></div>Core Skills</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#7fff00"></div>Specialist</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#ff8c00"></div>Leadership</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#b44fff"></div>Advanced / Degree</div>
+<!-- LEGEND -->
+<div class="legend-bar">
+    <span class="legend-label">Tier:</span>
+    <div class="legend-item"><div class="legend-pip" style="background:#e4007c"></div>Entry Point</div>
+    <div class="legend-item"><div class="legend-pip" style="background:#00b5d8"></div>Foundation</div>
+    <div class="legend-item"><div class="legend-pip" style="background:#7b2fbe"></div>Intermediate</div>
+    <div class="legend-item"><div class="legend-pip" style="background:#f5c800"></div>Advanced</div>
+    <div class="legend-item"><div class="legend-pip" style="background:#0d1b2e"></div>Leadership</div>
 </div>
 
-<div class="canvas-wrap">
+<!-- MAP -->
+<div class="map-section">
     <canvas id="mapCanvas"></canvas>
+    <div class="hint-bar">
+    <span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Click a node to explore
+    </span>
+        <span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3"/></svg>
+      Drag to pan
+    </span>
+        <span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+      Scroll to zoom
+    </span>
+    </div>
 </div>
 
-<p class="hint">Click a node to explore · <em>Drag</em> to pan · <em>Scroll</em> to zoom</p>
-
+<!-- OVERLAY + PANEL -->
 <div class="overlay" id="overlay"></div>
 
 <div class="info-panel" id="infoPanel">
-    <div class="panel-stripe" id="panelStripe"></div>
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem">
-        <div style="flex:1">
-            <div class="panel-badge" id="panelBadge"></div>
-            <div class="panel-title" id="panelTitle"></div>
-            <div class="panel-level" id="panelLevel"></div>
-        </div>
-        <button class="close-btn" id="closeBtn">×</button>
+    <div class="panel-top">
+        <button class="panel-close" id="closeBtn">×</button>
+        <div class="panel-tier-badge" id="panelBadge"></div>
+        <div class="panel-title" id="panelTitle"></div>
+        <div class="panel-level" id="panelLevel"></div>
+        <p class="panel-desc" id="panelDesc"></p>
     </div>
-    <p class="panel-desc" id="panelDesc"></p>
-    <div class="panel-section-label">Pathways & connections</div>
-    <div class="connections-list" id="connList"></div>
+    <div class="panel-bottom">
+        <div class="panel-connections-label">Where this leads →</div>
+        <div class="conn-pills" id="connList"></div>
+    </div>
 </div>
 
+
 <script>
-    // ─── DATA ─────────────────────────────────────────────────────────────────
-    const COLORS = {
-        foundations: '#ff3cac',
-        core:        '#00d4ff',
-        specialist:  '#7fff00',
-        leadership:  '#ff8c00',
-        advanced:    '#b44fff',
+    // ─── BRAND COLOURS ────────────────────────────────────────────────────────
+    const TIER_COLORS = {
+        entry:        '#e4007c',   // pink
+        foundation:   '#00b5d8',   // cyan
+        intermediate: '#7b2fbe',   // purple
+        advanced:     '#e8a000',   // amber (yellow looks bad on white canvas)
+        leadership:   '#0d1b2e',   // navy
     };
 
+    const TIER_LABELS = {
+        entry: 'Entry Point',
+        foundation: 'Foundation',
+        intermediate: 'Intermediate',
+        advanced: 'Advanced',
+        leadership: 'Leadership',
+    };
+
+    // ─── DATA ─────────────────────────────────────────────────────────────────
     const nodes = [
-        // FOUNDATIONS
-        {
-            id:'n1', label:'Digital\nBootcamp', category:'foundations',
-            level:'Pre-Apprenticeship · Level 2',
-            desc:'An intensive introductory programme covering digital literacy, computational thinking, and workplace readiness. The ideal launchpad for anyone entering the tech industry with no prior experience.',
-            connections:['n2','n3','n4','n5']
-        },
-        {
-            id:'n2', label:'IT User\nSkills L2', category:'foundations',
+        // ENTRY
+        { id:'n1',  label:'Work\nExperience', tier:'entry',
+            level:'Pre-16 · Age 14–16',
+            desc:'Bristol Future Talent Partnership\'s flagship work experience programme. Students gain insight into diverse organisations across Bristol, with all transport and meals provided. The ideal starting point for any young person exploring their future.',
+            connections:['n2','n3','n4','n5'] },
+        { id:'n2',  label:'Careers\nInsight Week', tier:'entry',
+            level:'Pre-16 / Post-16 Taster',
+            desc:'A structured week-long insight programme giving students direct exposure to a partner organisation. Students attend workshops, shadow professionals, and complete a mini project — building confidence and real-world awareness.',
+            connections:['n1','n3','n6','n7'] },
+
+        // FOUNDATION
+        { id:'n3',  label:'Level 2\nBusiness Admin', tier:'foundation',
+            level:'Level 2 Apprenticeship',
+            desc:'Builds the organisational and communication skills essential for any professional environment. Covers document production, scheduling, data entry, and stakeholder correspondence. A solid launchpad into business-facing careers.',
+            connections:['n1','n2','n8','n9'] },
+        { id:'n4',  label:'Level 2\nCustomer Service', tier:'foundation',
+            level:'Level 2 Apprenticeship',
+            desc:'Develops core customer-facing skills across both in-person and digital channels. Covers handling enquiries, using CRM systems, and meeting service standards. A popular first apprenticeship with broad career applications.',
+            connections:['n1','n5','n9','n10'] },
+        { id:'n5',  label:'Level 2\nIT User Skills', tier:'foundation',
             level:'Level 2 Award',
-            desc:'Covers essential IT skills: file management, spreadsheets, word processing, email, and internet safety. Provides the bedrock knowledge needed to progress to any technical apprenticeship.',
-            connections:['n1','n3','n6','n7']
-        },
-        {
-            id:'n3', label:'CompTIA\nIT Fundamentals', category:'foundations',
-            level:'Vendor Certification · Foundation',
-            desc:'A globally recognised vendor-neutral certification covering core hardware, software, networking, and security concepts. A strong asset on any tech CV and a natural stepping stone to CompTIA A+.',
-            connections:['n1','n2','n6','n8']
-        },
+            desc:'Covers essential digital skills: file management, spreadsheets, word processing, email, and internet safety. The gateway to all technical apprenticeship pathways and valuable in any modern workplace.',
+            connections:['n1','n2','n4','n11','n12'] },
+        { id:'n6',  label:'Level 2\nHealth & Social Care', tier:'foundation',
+            level:'Level 2 Apprenticeship',
+            desc:'An introduction to working in health and social care settings. Covers safeguarding, person-centred care, communication, and basic clinical awareness. A compassionate career path with strong local demand.',
+            connections:['n2','n13','n14'] },
+        { id:'n7',  label:'Level 2\nRetail', tier:'foundation',
+            level:'Level 2 Apprenticeship',
+            desc:'Practical retail skills including stock management, visual merchandising, customer interaction, and sales techniques. Ideal for students interested in commerce, fashion, or hospitality sectors.',
+            connections:['n2','n4','n10'] },
 
-        // CORE SKILLS
-        {
-            id:'n4', label:'Software Dev\nApprenticeship', category:'core',
+        // INTERMEDIATE
+        { id:'n8',  label:'Level 3\nTeam Leader', tier:'intermediate',
             level:'Level 3 Apprenticeship',
-            desc:'Learn to build web and software applications in a real business environment. Covers Python, JavaScript, databases, version control with Git, and agile methodologies. One of the most in-demand pathways in tech.',
-            connections:['n1','n9','n10','n11']
-        },
-        {
-            id:'n5', label:'IT Support\nTechnician', category:'core',
+            desc:'Develops first-line management capabilities: team coordination, performance conversations, project planning, and conflict resolution. The stepping stone from individual contributor to team leader in any industry.',
+            connections:['n3','n9','n15'] },
+        { id:'n9',  label:'Level 3\nMarketing', tier:'intermediate',
             level:'Level 3 Apprenticeship',
-            desc:'Provide first and second-line technical support to organisations. Covers hardware, operating systems, networking, Active Directory, and ticketing systems. An excellent entry into enterprise IT.',
-            connections:['n1','n2','n6','n8','n12']
-        },
-        {
-            id:'n6', label:'Network\nTechnician', category:'core',
+            desc:'Covers digital marketing fundamentals — social media strategy, SEO, content creation, campaign analytics, and brand management. Highly relevant across all Bristol Future Talent partner organisations.',
+            connections:['n3','n4','n8','n16'] },
+        { id:'n10', label:'Level 3\nSales Executive', tier:'intermediate',
             level:'Level 3 Apprenticeship',
-            desc:'Build and maintain the network infrastructure that keeps organisations running. Covers TCP/IP, routing and switching, VLANs, firewalls, and wireless systems. Prepares students for CCNA or CompTIA Network+.',
-            connections:['n2','n3','n5','n12','n13']
-        },
-        {
-            id:'n7', label:'Data Analyst\nApprenticeship', category:'core',
-            level:'Level 4 Higher Apprenticeship',
-            desc:'Turn raw data into business insights using SQL, Python, Power BI, and Excel. Apprentices work on real datasets, building dashboards and reports that drive decision-making across the organisation.',
-            connections:['n2','n14','n15']
-        },
-        {
-            id:'n8', label:'Cybersecurity\nTechnician', category:'core',
+            desc:'Develops consultative selling skills, pipeline management, negotiation techniques, and CRM proficiency. Combines well with a customer service foundation and opens doors to commercial careers.',
+            connections:['n4','n7','n9','n15'] },
+        { id:'n11', label:'Level 3\nIT Technician', tier:'intermediate',
             level:'Level 3 Apprenticeship',
-            desc:'The front line of digital defence. Covers threat identification, vulnerability scanning, incident response, and security tooling. Prepares apprentices for CompTIA Security+ and a fast-growing career field.',
-            connections:['n3','n5','n6','n13','n16']
-        },
+            desc:'Hardware support, networking fundamentals, and operating systems. Apprentices gain hands-on experience resolving real technical issues. Prepares students for CompTIA A+ or Microsoft certifications.',
+            connections:['n5','n12','n17','n18'] },
+        { id:'n12', label:'Level 3\nSoftware Dev', tier:'intermediate',
+            level:'Level 3 Apprenticeship',
+            desc:'Programming fundamentals, version control with Git, databases, and agile development. Apprentices build real features for real products — one of the most in-demand pathways in Bristol\'s growing tech sector.',
+            connections:['n5','n11','n18','n19'] },
+        { id:'n13', label:'Level 3\nHeath & Social\nCare', tier:'intermediate',
+            level:'Level 3 Apprenticeship',
+            desc:'Advances clinical and pastoral skills for frontline health roles. Covers medication management, mental health awareness, safeguarding at a senior level, and professional boundaries.',
+            connections:['n6','n14','n20'] },
+        { id:'n14', label:'Level 3\nChildcare', tier:'intermediate',
+            level:'Level 3 Early Years Educator',
+            desc:'Equips apprentices to support children\'s development from birth to five. Covers EYFS framework, safeguarding, SEN support, and family engagement. A rewarding career with strong Bristol demand.',
+            connections:['n6','n13','n20'] },
 
-        // SPECIALIST
-        {
-            id:'n9', label:'Frontend\nDeveloper', category:'specialist',
-            level:'Level 4 Higher Apprenticeship',
-            desc:'Specialise in crafting beautiful, accessible user interfaces. Deep dives into React, TypeScript, CSS architecture, performance optimisation, and web accessibility standards (WCAG). Work closely with designers and product teams.',
-            connections:['n4','n10','n17']
-        },
-        {
-            id:'n10', label:'Backend\nDeveloper', category:'specialist',
-            level:'Level 4 Higher Apprenticeship',
-            desc:'Build the engines that power web applications — APIs, databases, authentication systems, and server infrastructure. Covers Node.js, Django or Spring Boot, PostgreSQL, Redis, and RESTful API design.',
-            connections:['n4','n9','n11','n17','n18']
-        },
-        {
-            id:'n11', label:'DevOps\nEngineer', category:'specialist',
-            level:'Level 4 Higher Apprenticeship',
-            desc:'Bridge the gap between development and operations. Covers CI/CD pipelines, Docker, Kubernetes, Terraform, and cloud platforms (AWS/Azure/GCP). A critical role in any modern software engineering team.',
-            connections:['n4','n10','n18','n19']
-        },
-        {
-            id:'n12', label:'Cloud\nPractitioner', category:'specialist',
-            level:'Level 4 Higher Apprenticeship',
-            desc:'Design and manage cloud infrastructure on AWS, Azure, or Google Cloud. Covers virtual machines, storage, IAC, cost optimisation, and cloud security. Prepares apprentices for AWS Solutions Architect or AZ-900 certifications.',
-            connections:['n5','n6','n11','n13','n19']
-        },
-        {
-            id:'n13', label:'Security\nAnalyst', category:'specialist',
-            level:'Level 4 Higher Apprenticeship',
-            desc:'Operate within a Security Operations Centre (SOC), monitoring for threats, analysing logs, and responding to incidents. Covers SIEM tools, threat intelligence platforms, and forensic analysis techniques.',
-            connections:['n6','n8','n12','n16']
-        },
-        {
-            id:'n14', label:'ML Engineer', category:'specialist',
+        // ADVANCED
+        { id:'n15', label:'Level 5\nOperations Mgr', tier:'advanced',
             level:'Level 5 Higher Apprenticeship',
-            desc:'Build machine learning models and deploy them into production systems. Covers supervised and unsupervised learning, neural networks with PyTorch/TensorFlow, MLOps pipelines, and model evaluation strategies.',
-            connections:['n7','n15','n20']
-        },
-        {
-            id:'n15', label:'Data Engineer', category:'specialist',
+            desc:'Strategic operations management: process improvement (Lean/Six Sigma), budget management, and senior stakeholder engagement. A significant step up from team leader into organisational leadership.',
+            connections:['n8','n10','n21'] },
+        { id:'n16', label:'Level 4\nMarketing Exec', tier:'advanced',
+            level:'Level 4 Higher Apprenticeship',
+            desc:'Advanced marketing strategy, data analytics, campaign management, and brand leadership. Covers B2B and B2C marketing across digital and traditional channels. Pathway to Chartered Marketer status.',
+            connections:['n9','n21'] },
+        { id:'n17', label:'Level 4\nNetwork Engineer', tier:'advanced',
+            level:'Level 4 Higher Apprenticeship',
+            desc:'Enterprise networking — routing, switching, firewalls, VPNs, and cloud infrastructure. Prepares apprentices for industry certifications including CCNA or CompTIA Network+.',
+            connections:['n11','n18','n22'] },
+        { id:'n18', label:'Level 4\nCybersecurity', tier:'advanced',
+            level:'Level 4 Higher Apprenticeship',
+            desc:'Threat analysis, vulnerability assessment, incident response, and security tooling. A fast-growing pathway with excellent employment outcomes. Pathway to CompTIA Security+ and CEH certifications.',
+            connections:['n11','n12','n17','n22'] },
+        { id:'n19', label:'Level 4\nSoftware Dev', tier:'advanced',
+            level:'Level 4 Higher Apprenticeship',
+            desc:'Full-stack development, APIs, cloud deployment, and agile at scale. Apprentices work on production systems in Bristol\'s growing tech ecosystem, building the experience for senior engineering roles.',
+            connections:['n12','n22','n23'] },
+        { id:'n20', label:'Level 5\nNursing\nAssociate', tier:'advanced',
             level:'Level 5 Higher Apprenticeship',
-            desc:'Architect and maintain the data pipelines that feed analytics and AI systems. Covers Apache Spark, Kafka, data warehousing (Snowflake/BigQuery), and orchestration tools like Airflow. Works closely with data analysts and scientists.',
-            connections:['n7','n14','n20']
-        },
-
-        // ADVANCED / DEGREE
-        {
-            id:'n16', label:'Cyber Security\nManager L6', category:'advanced',
-            level:'Level 6 Degree Apprenticeship',
-            desc:'Lead an organisation\'s cybersecurity strategy. Covers enterprise risk management, governance frameworks (ISO 27001, NIST), penetration testing, and board-level security reporting. Pathway to CISSP or CISM certification.',
-            connections:['n8','n13']
-        },
-        {
-            id:'n17', label:'Software\nEngineer L6', category:'advanced',
-            level:'Level 6 Degree Apprenticeship',
-            desc:'Senior-level software engineering combining system design, distributed architecture, and technical leadership. Graduates are equipped for engineering lead or principal engineer roles at scale-ups and enterprises alike.',
-            connections:['n9','n10','n21']
-        },
-        {
-            id:'n18', label:'Cloud Architect\nL6', category:'advanced',
-            level:'Level 6 Degree Apprenticeship',
-            desc:'Design resilient, scalable, and cost-effective cloud-native architectures. Covers multi-cloud strategy, serverless computing, FinOps, and enterprise migration projects. Pathway to AWS Professional or Azure Expert certifications.',
-            connections:['n10','n11','n12','n19','n21']
-        },
-        {
-            id:'n19', label:'Platform\nEngineer L6', category:'advanced',
-            level:'Level 6 Degree Apprenticeship',
-            desc:'Build and maintain the internal developer platforms that enable engineering teams to ship fast and safely. Covers Kubernetes operators, golden paths, developer experience (DX), and internal tooling strategy.',
-            connections:['n11','n12','n18']
-        },
-        {
-            id:'n20', label:'AI / Data\nScientist L6', category:'advanced',
-            level:'Level 6 Degree Apprenticeship',
-            desc:'Apply advanced statistical modelling, deep learning, and NLP to solve complex business problems. Work on LLM fine-tuning, computer vision, recommendation systems, and responsible AI governance.',
-            connections:['n14','n15','n21']
-        },
+            desc:'A registered nursing role working under the supervision of a Registered Nurse. Covers clinical assessment, care planning, medication management, and professional accountability. A direct route into nursing.',
+            connections:['n13','n14','n24'] },
 
         // LEADERSHIP
-        {
-            id:'n21', label:'Technology\nLeader L7', category:'leadership',
-            level:'Level 7 Executive Apprenticeship',
-            desc:'The pinnacle of the digital career pathway. Develop the skills to lead engineering organisations — covering technology strategy, engineering culture, P&L management, talent development, and board-level communication. Equivalent to an MBA with a technology focus.',
-            connections:['n17','n18','n20']
-        },
+        { id:'n21', label:'Level 7\nSenior Leader', tier:'leadership',
+            level:'Level 7 Master\'s Apprenticeship',
+            desc:'C-suite and director-level leadership development. Covers organisational strategy, change management, people development, and financial oversight. Equivalent to an MBA, delivered alongside full-time employment.',
+            connections:['n15','n16'] },
+        { id:'n22', label:'Level 6\nCyber / Network\nDegree', tier:'leadership',
+            level:'Level 6 Degree Apprenticeship',
+            desc:'A fully-funded degree combining advanced cybersecurity or network engineering with workplace experience. Graduates are equipped for senior technical or security management roles across Bristol\'s public and private sectors.',
+            connections:['n17','n18'] },
+        { id:'n23', label:'Level 6\nSoftware Eng\nDegree', tier:'leadership',
+            level:'Level 6 Degree Apprenticeship',
+            desc:'A fully-funded computer science degree integrated with employment. Covers system design, distributed architecture, and technical leadership. Graduates are placed into senior engineering roles at Bristol\'s leading tech employers.',
+            connections:['n19'] },
+        { id:'n24', label:'Level 6\nRegistered\nNurse', tier:'leadership',
+            level:'Level 6 Degree Apprenticeship',
+            desc:'The pinnacle of the healthcare pathway — a fully qualified Registered Nurse. Achieved through a degree apprenticeship route, enabling students to earn while qualifying. Opens doors across NHS and private healthcare settings in Bristol.',
+            connections:['n20'] },
     ];
 
-    // Node positions [fx, fy] as fractions of canvas W/H
+    // ─── POSITIONS [fx, fy] ────────────────────────────────────────────────────
     const positions = {
-        // FOUNDATIONS (left cluster)
-        n1:  [0.08, 0.50],
-        n2:  [0.16, 0.28],
-        n3:  [0.16, 0.72],
+        // Entry (left)
+        n1:  [0.07, 0.42],
+        n2:  [0.07, 0.62],
 
-        // CORE SKILLS (middle-left)
-        n4:  [0.30, 0.18],
-        n5:  [0.30, 0.45],
-        n6:  [0.30, 0.70],
-        n7:  [0.30, 0.88],
-        n8:  [0.38, 0.62],
+        // Foundation (col 2)
+        n3:  [0.22, 0.18],
+        n4:  [0.22, 0.40],
+        n5:  [0.22, 0.60],
+        n6:  [0.22, 0.78],
+        n7:  [0.22, 0.95],
 
-        // SPECIALIST (middle-right)
-        n9:  [0.50, 0.12],
-        n10: [0.52, 0.30],
-        n11: [0.54, 0.48],
-        n12: [0.52, 0.66],
-        n13: [0.50, 0.82],
-        n14: [0.44, 0.95],
-        n15: [0.38, 0.95],
+        // Intermediate (col 3)
+        n8:  [0.42, 0.12],
+        n9:  [0.42, 0.28],
+        n10: [0.42, 0.44],
+        n11: [0.42, 0.60],
+        n12: [0.42, 0.75],
+        n13: [0.42, 0.87],
+        n14: [0.42, 0.98],
 
-        // ADVANCED (right)
-        n16: [0.68, 0.82],
-        n17: [0.68, 0.15],
-        n18: [0.72, 0.40],
-        n19: [0.72, 0.60],
-        n20: [0.65, 0.96],
+        // Advanced (col 4)
+        n15: [0.63, 0.18],
+        n16: [0.63, 0.33],
+        n17: [0.63, 0.50],
+        n18: [0.63, 0.65],
+        n19: [0.63, 0.80],
+        n20: [0.63, 0.95],
 
-        // LEADERSHIP (far right)
-        n21: [0.88, 0.50],
+        // Leadership (right)
+        n21: [0.88, 0.18],
+        n22: [0.88, 0.45],
+        n23: [0.88, 0.68],
+        n24: [0.88, 0.92],
     };
 
     const RADII = {
-        foundations: 16, core: 18, specialist: 17, advanced: 20, leadership: 26
+        entry: 18, foundation: 16, intermediate: 16, advanced: 18, leadership: 22
     };
 
-    // ─── CANVAS ─────────────────────────────────────────────────────────────────
+    // ─── CANVAS ───────────────────────────────────────────────────────────────
     const canvas = document.getElementById('mapCanvas');
     const ctx = canvas.getContext('2d');
-    let W, H, scale = 1, offsetX = 0, offsetY = 0;
-    let isDragging = false, dragStart = null, dragOffset = null;
+    let W, H, dpr;
+    let scale = 1, offsetX = 0, offsetY = 0;
+    let isDragging = false, dragStart, dragOffset, _moved = false;
     let hoveredNode = null;
-    let pulsePhase = 0;
-    let particleT = 0;
+    let pulse = 0;
 
-    // Animated particles flowing along edges
+    // Particles along edges
     const particles = [];
     function initParticles() {
         particles.length = 0;
-        nodes.forEach(node => {
-            node.connections.forEach(cid => {
-                if (node.id < cid) {
-                    particles.push({ from: node.id, to: cid, t: Math.random(), speed: 0.003 + Math.random()*0.003 });
+        nodes.forEach(n => {
+            n.connections.forEach(cid => {
+                if (n.id < cid) {
+                    for (let i = 0; i < 2; i++) {
+                        particles.push({
+                            from: n.id, to: cid,
+                            t: Math.random(),
+                            speed: 0.002 + Math.random() * 0.002,
+                            offset: i * 0.5
+                        });
+                    }
                 }
             });
         });
     }
 
     function resize() {
+        dpr = window.devicePixelRatio || 1;
         const wrap = canvas.parentElement;
+
         W = wrap.clientWidth;
-        H = Math.max(580, Math.round(W * 0.58));
-        canvas.width = W * devicePixelRatio;
-        canvas.height = H * devicePixelRatio;
+
+        // More natural mobile height ratio
+        if (window.innerWidth < 768) {
+            H = Math.round(W * 1.15); // taller layout for stacked feel
+        } else {
+            H = Math.max(600, Math.round(W * 0.65));
+        }
+
+        canvas.width = W * dpr;
+        canvas.height = H * dpr;
         canvas.style.width = W + 'px';
         canvas.style.height = H + 'px';
-        ctx.scale(devicePixelRatio, devicePixelRatio);
+
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        // Reset zoom on mobile for better first view
+        if (window.innerWidth < 768) {
+            scale = 0.9;
+            offsetX = 0;
+            offsetY = 0;
+        }
+
         initParticles();
     }
 
-    function nodeScreen(id) {
+    function nodeXY(id) {
         const [fx, fy] = positions[id];
         return { x: fx * W * scale + offsetX, y: fy * H * scale + offsetY };
     }
 
-    function getNodeAt(sx, sy) {
+    function hitTest(sx, sy) {
         for (const n of nodes) {
-            const p = nodeScreen(n.id);
-            const r = RADII[n.category] + 10;
+            const p = nodeXY(n.id);
+            const r = (RADII[n.tier] + 10) * Math.max(0.5, scale);
             if (Math.hypot(sx - p.x, sy - p.y) < r) return n;
         }
         return null;
     }
 
-    // ─── DRAW ────────────────────────────────────────────────────────────────────
+    // ─── DRAW ─────────────────────────────────────────────────────────────────
     function draw() {
         ctx.clearRect(0, 0, W, H);
-        pulsePhase += 0.025;
-        particleT += 0.016;
+        pulse += 0.022;
 
-        // GRID dots (subtle)
-        ctx.fillStyle = 'rgba(0,0,0,0.04)';
-        const gstep = 40 * scale;
-        const ox = offsetX % gstep;
-        const oy = offsetY % gstep;
-        for (let x = ox; x < W; x += gstep)
-            for (let y = oy; y < H; y += gstep) {
-                ctx.beginPath();
-                ctx.arc(x, y, 1.2, 0, Math.PI*2);
-                ctx.fill();
-            }
+        // Subtle column guides
+        [0.22, 0.42, 0.63, 0.88].forEach(fx => {
+            const x = fx * W * scale + offsetX;
+            ctx.beginPath();
+            ctx.moveTo(x, 0); ctx.lineTo(x, H);
+            ctx.strokeStyle = 'rgba(0,0,0,0.03)';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([4, 8]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+        });
+
+        // Column tier labels
+        const TIER_COLS = [
+            { label: 'Entry', fx: 0.07 },
+            { label: 'Foundation', fx: 0.22 },
+            { label: 'Intermediate', fx: 0.42 },
+            { label: 'Advanced', fx: 0.63 },
+            { label: 'Leadership', fx: 0.88 },
+        ];
+        TIER_COLS.forEach(({ label, fx }) => {
+            const x = fx * W * scale + offsetX;
+            ctx.font = `700 ${Math.max(9, 11 * scale)}px 'Nunito', sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.fillStyle = 'rgba(0,0,0,0.12)';
+            ctx.fillText(label.toUpperCase(), x, 10);
+        });
 
         // EDGES
-        nodes.forEach(node => {
-            node.connections.forEach(cid => {
-                if (node.id < cid) {
-                    const a = nodeScreen(node.id);
-                    const b = nodeScreen(cid);
-                    const ca = COLORS[node.category];
-                    const cb = COLORS[nodes.find(n=>n.id===cid).category];
-                    const isHot = hoveredNode && (hoveredNode.id===node.id || hoveredNode.id===cid);
+        nodes.forEach(n => {
+            n.connections.forEach(cid => {
+                if (n.id < cid) {
+                    const a = nodeXY(n.id), b = nodeXY(cid);
+                    const isHot = hoveredNode && (hoveredNode.id===n.id || hoveredNode.id===cid);
+                    const ca = TIER_COLORS[n.tier];
+                    const cb = TIER_COLORS[nodes.find(x=>x.id===cid).tier];
 
                     ctx.beginPath();
                     ctx.moveTo(a.x, a.y);
-                    ctx.lineTo(b.x, b.y);
+                    // Curved line
+                    const cx = (a.x + b.x) / 2;
+                    const cy = (a.y + b.y) / 2 - 20 * scale;
+                    ctx.quadraticCurveTo(cx, cy, b.x, b.y);
 
                     if (isHot) {
                         const g = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
@@ -598,9 +658,9 @@
                         ctx.lineWidth = 2.5;
                         ctx.setLineDash([]);
                     } else {
-                        ctx.strokeStyle = 'rgba(0,0,0,0.07)';
-                        ctx.lineWidth = 1.2;
-                        ctx.setLineDash([5,7]);
+                        ctx.strokeStyle = 'rgba(0,0,0,0.08)';
+                        ctx.lineWidth = 1.5;
+                        ctx.setLineDash([6, 8]);
                     }
                     ctx.stroke();
                     ctx.setLineDash([]);
@@ -608,133 +668,148 @@
             });
         });
 
-        // FLOWING PARTICLES along edges
+        // PARTICLES
         particles.forEach(p => {
             p.t = (p.t + p.speed) % 1;
-            const a = nodeScreen(p.from);
-            const b = nodeScreen(p.to);
-            const x = a.x + (b.x - a.x) * p.t;
-            const y = a.y + (b.y - a.y) * p.t;
-            const col = COLORS[nodes.find(n=>n.id===p.from).category];
-            const alpha = 0.3 + Math.sin(p.t * Math.PI) * 0.4;
-
+            const a = nodeXY(p.from), b = nodeXY(p.to);
+            const t = p.t;
+            const cx = (a.x + b.x) / 2;
+            const cy = (a.y + b.y) / 2 - 20 * scale;
+            // Point on quadratic bezier
+            const x = (1-t)*(1-t)*a.x + 2*(1-t)*t*cx + t*t*b.x;
+            const y = (1-t)*(1-t)*a.y + 2*(1-t)*t*cy + t*t*b.y;
+            const alpha = Math.sin(t * Math.PI) * 0.55;
+            const col = TIER_COLORS[nodes.find(n=>n.id===p.from).tier];
             ctx.beginPath();
-            ctx.arc(x, y, 2.5 * scale, 0, Math.PI*2);
+            ctx.arc(x, y, 2.5 * Math.max(0.6, scale), 0, Math.PI*2);
             ctx.fillStyle = col + Math.round(alpha * 255).toString(16).padStart(2,'0');
             ctx.fill();
         });
 
         // NODES
-        nodes.forEach(node => {
-            const { x, y } = nodeScreen(node.id);
-            const r = RADII[node.category] * scale;
-            const color = COLORS[node.category];
-            const isHovered = hoveredNode && hoveredNode.id === node.id;
-            const isConnected = hoveredNode && hoveredNode.connections.includes(node.id);
-            const wobble = Math.sin(pulsePhase + node.id.charCodeAt(1) * 0.7) * 0.5;
+        nodes.forEach(n => {
+            const { x, y } = nodeXY(n.id);
+            const r = RADII[n.tier] * Math.max(0.55, scale);
+            const color = TIER_COLORS[n.tier];
+            const isHovered = hoveredNode?.id === n.id;
+            const isConnected = hoveredNode?.connections.includes(n.id);
+            const wobble = Math.sin(pulse + n.id.charCodeAt(1) * 0.9) * 1.5;
 
-            // Shadow / glow
-            const glowR = r * (isHovered ? 4 : 2.8);
+            // Glow
+            const glowR = r * (isHovered ? 4.5 : 3);
             const glow = ctx.createRadialGradient(x, y, 0, x, y, glowR);
-            glow.addColorStop(0, color + (isHovered ? '50' : '28'));
+            glow.addColorStop(0, color + (isHovered ? '45' : '22'));
             glow.addColorStop(1, 'transparent');
-            ctx.beginPath();
-            ctx.arc(x, y, glowR, 0, Math.PI*2);
-            ctx.fillStyle = glow;
-            ctx.fill();
+            ctx.beginPath(); ctx.arc(x, y, glowR, 0, Math.PI*2);
+            ctx.fillStyle = glow; ctx.fill();
 
-            // Pulse ring
-            const pr = r + 6 + wobble;
+            // Outer pulse ring
             ctx.beginPath();
-            ctx.arc(x, y, pr, 0, Math.PI*2);
-            ctx.strokeStyle = color + (isHovered ? '60' : '22');
+            ctx.arc(x, y, r + 5 + wobble, 0, Math.PI*2);
+            ctx.strokeStyle = color + (isHovered ? '55' : '1a');
             ctx.lineWidth = isHovered ? 2 : 1;
             ctx.stroke();
 
-            // Second outer ring for hovered/connected
-            if (isHovered || isConnected) {
+            // Connected ring
+            if (isConnected) {
                 ctx.beginPath();
-                ctx.arc(x, y, r + 10 + wobble, 0, Math.PI*2);
-                ctx.strokeStyle = color + (isHovered ? '40' : '20');
-                ctx.lineWidth = 1;
+                ctx.arc(x, y, r + 8, 0, Math.PI*2);
+                ctx.strokeStyle = color + '44';
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([3, 4]);
                 ctx.stroke();
+                ctx.setLineDash([]);
             }
 
-            // Core
-            const core = ctx.createRadialGradient(x - r*0.25, y - r*0.25, r*0.05, x, y, r);
-            core.addColorStop(0, '#ffffff');
-            core.addColorStop(0.35, color + 'ee');
-            core.addColorStop(1, color);
+            // Drop shadow
+            ctx.shadowColor = color + '55';
+            ctx.shadowBlur = isHovered ? 22 : 10;
+
+            // Core circle
             ctx.beginPath();
             ctx.arc(x, y, r, 0, Math.PI*2);
-            ctx.fillStyle = core;
+            const coreG = ctx.createRadialGradient(x - r*0.3, y - r*0.3, r*0.05, x, y, r);
+            coreG.addColorStop(0, lighten(color, 30));
+            coreG.addColorStop(0.6, color);
+            coreG.addColorStop(1, darken(color, 15));
+            ctx.fillStyle = coreG;
             ctx.fill();
+            ctx.shadowBlur = 0;
 
-            // White specular
-            ctx.beginPath();
-            ctx.arc(x - r*0.28, y - r*0.28, r*0.22, 0, Math.PI*2);
-            ctx.fillStyle = 'rgba(255,255,255,0.55)';
-            ctx.fill();
-
-            // Ring outline
+            // White ring
             ctx.beginPath();
             ctx.arc(x, y, r, 0, Math.PI*2);
-            ctx.strokeStyle = isHovered ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.35)';
+            ctx.strokeStyle = isHovered ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.5)';
             ctx.lineWidth = isHovered ? 2.5 : 1.5;
             ctx.stroke();
 
+            // Specular highlight
+            ctx.beginPath();
+            ctx.arc(x - r*0.3, y - r*0.3, r*0.25, 0, Math.PI*2);
+            ctx.fillStyle = 'rgba(255,255,255,0.45)';
+            ctx.fill();
+
             // Label
-            const fs = Math.max(8, Math.min(11, 10 * scale));
-            ctx.font = `600 ${fs}px 'Space Grotesk', sans-serif`;
+            const fs = Math.max(7, Math.min(10, 9.5 * scale));
+            ctx.font = `700 ${fs}px 'Nunito Sans', sans-serif`;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'top';
-            const lines = node.label.split('\n');
+            const lines = n.label.split('\n');
             const ly = y + r + 5;
             lines.forEach((line, i) => {
-                // shadow
-                ctx.fillStyle = 'rgba(255,255,255,0.8)';
-                ctx.fillText(line, x+0.5, ly + i*(fs+3)+0.5);
-                // text
-                ctx.fillStyle = isHovered ? color : 'rgba(20,20,50,0.75)';
-                ctx.fillText(line, x, ly + i*(fs+3));
+                ctx.fillStyle = 'rgba(255,255,255,0.7)';
+                ctx.fillText(line, x+0.5, ly + i*(fs+2)+0.5);
+                ctx.fillStyle = isHovered ? color : 'rgba(26,26,46,0.75)';
+                ctx.fillText(line, x, ly + i*(fs+2));
             });
         });
 
         requestAnimationFrame(draw);
     }
 
-    // ─── EVENTS ───────────────────────────────────────────────────────────────
-    let _dragMoved = false;
+    function lighten(hex, amt) {
+        const n = parseInt(hex.slice(1), 16);
+        const r = Math.min(255, (n >> 16) + amt);
+        const g = Math.min(255, ((n >> 8) & 0xff) + amt);
+        const b = Math.min(255, (n & 0xff) + amt);
+        return `rgb(${r},${g},${b})`;
+    }
+    function darken(hex, amt) {
+        const n = parseInt(hex.slice(1), 16);
+        const r = Math.max(0, (n >> 16) - amt);
+        const g = Math.max(0, ((n >> 8) & 0xff) - amt);
+        const b = Math.max(0, (n & 0xff) - amt);
+        return `rgb(${r},${g},${b})`;
+    }
+
+    // ─── INTERACTION ──────────────────────────────────────────────────────────
     canvas.addEventListener('mousemove', e => {
         const r = canvas.getBoundingClientRect();
-        const sx = (e.clientX - r.left);
-        const sy = (e.clientY - r.top);
+        const sx = e.clientX - r.left, sy = e.clientY - r.top;
         if (isDragging) {
-            _dragMoved = true;
+            _moved = true;
             offsetX = dragOffset.x + (e.clientX - dragStart.x);
             offsetY = dragOffset.y + (e.clientY - dragStart.y);
             return;
         }
-        hoveredNode = getNodeAt(sx, sy);
+        hoveredNode = hitTest(sx, sy);
         canvas.style.cursor = hoveredNode ? 'pointer' : 'grab';
     });
 
     canvas.addEventListener('mousedown', e => {
-        isDragging = true;
-        _dragMoved = false;
+        isDragging = true; _moved = false;
         dragStart = { x: e.clientX, y: e.clientY };
         dragOffset = { x: offsetX, y: offsetY };
-        canvas.style.cursor = 'grabbing';
     });
 
     canvas.addEventListener('mouseup', e => {
         isDragging = false;
-        canvas.style.cursor = hoveredNode ? 'pointer' : 'grab';
-        if (!_dragMoved) {
+        if (!_moved) {
             const r = canvas.getBoundingClientRect();
-            const hit = getNodeAt(e.clientX - r.left, e.clientY - r.top);
+            const hit = hitTest(e.clientX - r.left, e.clientY - r.top);
             if (hit) openPanel(hit);
         }
+        canvas.style.cursor = hoveredNode ? 'pointer' : 'grab';
     });
 
     canvas.addEventListener('mouseleave', () => { isDragging = false; });
@@ -743,65 +818,61 @@
         e.preventDefault();
         const r = canvas.getBoundingClientRect();
         const mx = e.clientX - r.left, my = e.clientY - r.top;
-        const d = e.deltaY > 0 ? 0.88 : 1.12;
-        const ns = Math.min(3.5, Math.max(0.35, scale * d));
+        const d = e.deltaY > 0 ? 0.88 : 1.13;
+        const ns = Math.min(4, Math.max(0.3, scale * d));
         offsetX = mx - (mx - offsetX) * (ns / scale);
         offsetY = my - (my - offsetY) * (ns / scale);
         scale = ns;
     }, { passive: false });
 
-    // Touch
-    let _touchMoved = false;
+    let _tMoved = false;
     canvas.addEventListener('touchstart', e => {
         if (e.touches.length === 1) {
-            isDragging = true; _touchMoved = false;
+            isDragging = true; _tMoved = false;
             dragStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
             dragOffset = { x: offsetX, y: offsetY };
         }
     }, { passive: true });
     canvas.addEventListener('touchmove', e => {
         if (e.touches.length === 1 && isDragging) {
-            _touchMoved = true;
+            _tMoved = true;
             offsetX = dragOffset.x + (e.touches[0].clientX - dragStart.x);
             offsetY = dragOffset.y + (e.touches[0].clientY - dragStart.y);
         }
     }, { passive: true });
     canvas.addEventListener('touchend', e => {
         isDragging = false;
-        if (!_touchMoved && e.changedTouches.length === 1) {
+        if (!_tMoved && e.changedTouches.length === 1) {
             const t = e.changedTouches[0];
             const r = canvas.getBoundingClientRect();
-            const hit = getNodeAt(t.clientX - r.left, t.clientY - r.top);
+            const hit = hitTest(t.clientX - r.left, t.clientY - r.top);
             if (hit) openPanel(hit);
         }
     }, { passive: true });
 
-    // ─── PANEL ────────────────────────────────────────────────────────────────
+    // ─── PANEL ─────────────────────────────────────────────────────────────────
     const panel = document.getElementById('infoPanel');
     const overlay = document.getElementById('overlay');
 
     function openPanel(node) {
-        const color = COLORS[node.category];
-        document.getElementById('panelStripe').style.background =
-            `linear-gradient(90deg, ${color}, ${color}88)`;
+        const color = TIER_COLORS[node.tier];
         const badge = document.getElementById('panelBadge');
-        badge.textContent = node.category.charAt(0).toUpperCase() + node.category.slice(1);
-        badge.style.cssText = `background:${color}18;color:${color};border:1.5px solid ${color}55`;
-        document.getElementById('panelTitle').textContent = node.label.replace('\n',' ');
-        document.getElementById('panelLevel').textContent = '// ' + node.level;
-        const desc = document.getElementById('panelDesc');
-        desc.textContent = node.desc;
-        desc.style.borderLeftColor = color;
+        badge.textContent = TIER_LABELS[node.tier];
+        badge.style.cssText = `background:${color}18;color:${color};border:2px solid ${color}44`;
+
+        document.getElementById('panelTitle').textContent = node.label.replace(/\n/g, ' ');
+        document.getElementById('panelLevel').textContent = node.level;
+        document.getElementById('panelDesc').textContent = node.desc;
 
         const connList = document.getElementById('connList');
         connList.innerHTML = '';
         node.connections.forEach(cid => {
             const cn = nodes.find(n => n.id === cid);
+            const cc = TIER_COLORS[cn.tier];
             const pill = document.createElement('span');
             pill.className = 'conn-pill';
-            pill.textContent = cn.label.replace('\n',' ');
-            const cc = COLORS[cn.category];
-            pill.style.cssText = `color:${cc};background:${cc}12;border-color:${cc}55`;
+            pill.textContent = cn.label.replace(/\n/g, ' ');
+            pill.style.cssText = `color:${cc};background:${cc}14;border-color:${cc}55`;
             pill.addEventListener('click', () => openPanel(cn));
             connList.appendChild(pill);
         });
@@ -819,7 +890,7 @@
     overlay.addEventListener('click', closePanel);
 
     // ─── INIT ─────────────────────────────────────────────────────────────────
-    window.addEventListener('resize', () => { resize(); });
+    window.addEventListener('resize', resize);
     resize();
     draw();
 </script>
