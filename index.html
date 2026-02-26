@@ -574,17 +574,47 @@
         });
     }
 
+    function autoFit() {
+
+        // Find graph bounds in normalized space
+        let minX = 1, maxX = 0, minY = 1, maxY = 0;
+
+        Object.values(positions).forEach(([fx, fy]) => {
+            minX = Math.min(minX, fx);
+            maxX = Math.max(maxX, fx);
+            minY = Math.min(minY, fy);
+            maxY = Math.max(maxY, fy);
+        });
+
+        const graphWidth = (maxX - minX) * W;
+        const graphHeight = (maxY - minY) * H;
+
+        const padding = 60; // space around edges
+
+        const scaleX = (W - padding) / graphWidth;
+        const scaleY = (H - padding) / graphHeight;
+
+        scale = Math.min(scaleX, scaleY);
+
+        // Center graph
+        offsetX = (W - graphWidth * scale) / 2 - minX * W * scale;
+        offsetY = (H - graphHeight * scale) / 2 - minY * H * scale;
+    }
+
     function resize() {
         dpr = window.devicePixelRatio || 1;
         const wrap = canvas.parentElement;
 
-        W = wrap.clientWidth;
+        W = wrap.clientWidth || window.innerWidth;
 
-        // More natural mobile height ratio
         if (window.innerWidth < 768) {
-            H = Math.round(W * 1.15); // taller layout for stacked feel
+            H = Math.round(W * 1.15);
         } else {
             H = Math.max(600, Math.round(W * 0.65));
+        }
+
+        if (!H || H < 300) {
+            H = window.innerHeight * 0.8;
         }
 
         canvas.width = W * dpr;
@@ -594,14 +624,11 @@
 
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-        // Reset zoom on mobile for better first view
-        if (window.innerWidth < 768) {
-            scale = 0.9;
-            offsetX = 0;
-            offsetY = 0;
-        }
-
         initParticles();
+
+        if (window.innerWidth < 768) {
+            autoFit();
+        }
     }
 
     function nodeXY(id) {
