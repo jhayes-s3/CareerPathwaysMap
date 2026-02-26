@@ -99,7 +99,7 @@
             }
         }
 
-        
+
 
         .btn {
             display: inline-block;
@@ -124,7 +124,7 @@
         /* ── LEGEND BAR ── */
         .legend-bar {
             background: transparent;
-            border-bottom: none; 
+            border-bottom: none;
             padding: 1rem 2rem;
             display: flex;
             align-items: center;
@@ -165,6 +165,15 @@
             margin: 0 auto;
         }
 
+        @media (max-width: 768px) {
+            .map-section {
+                padding: 1rem 0 0.5rem;
+            }
+            #mapCanvas {
+                border-radius: 0;
+            }
+        }
+
         #mapCanvas {
             display: block;
             width: 100%;
@@ -172,6 +181,7 @@
             background: white;
             box-shadow: 0 2px 24px rgba(0,0,0,0.08), 0 0 0 1px var(--border);
             cursor: grab;
+            touch-action: none;
         }
         #mapCanvas:active { cursor: grabbing; }
 
@@ -545,6 +555,13 @@
         entry: 18, foundation: 16, intermediate: 16, advanced: 18, leadership: 22
     };
 
+    // On mobile the graph is drawn onto a virtual space larger than the canvas,
+    // so nodes are spread out and some start off-screen — user pans to explore.
+    // These multipliers only affect nodeXY on mobile; desktop is untouched.
+    const MOBILE_VW = 2.4;  // virtual width  = 2.4× canvas width
+    const MOBILE_VH = 1.4;  // virtual height = 1.8× canvas height
+    let isMobileLayout = false;
+
     // ─── CANVAS ───────────────────────────────────────────────────────────────
     const canvas = document.getElementById('mapCanvas');
     const ctx = canvas.getContext('2d');
@@ -574,41 +591,17 @@
         });
     }
 
-    function autoFit() {
-
-        // Find graph bounds in normalized space
-        let minX = 1, maxX = 0, minY = 1, maxY = 0;
-
-        Object.values(positions).forEach(([fx, fy]) => {
-            minX = Math.min(minX, fx);
-            maxX = Math.max(maxX, fx);
-            minY = Math.min(minY, fy);
-            maxY = Math.max(maxY, fy);
-        });
-
-        const graphWidth = (maxX - minX) * W;
-        const graphHeight = (maxY - minY) * H;
-
-        const padding = 60; // space around edges
-
-        const scaleX = (W - padding) / graphWidth;
-        const scaleY = (H - padding) / graphHeight;
-
-        scale = Math.min(scaleX, scaleY);
-
-        // Center graph
-        offsetX = (W - graphWidth * scale) / 2 - minX * W * scale;
-        offsetY = (H - graphHeight * scale) / 2 - minY * H * scale;
-    }
-
     function resize() {
         dpr = window.devicePixelRatio || 1;
         const wrap = canvas.parentElement;
+        const isMobile = window.innerWidth < 768;
+        isMobileLayout = isMobile;
 
         W = wrap.clientWidth || window.innerWidth;
 
-        if (window.innerWidth < 768) {
-            H = Math.round(W * 1.15);
+        if (isMobile) {
+            // On mobile: taller canvas so nodes have breathing room vertically
+            H = Math.round(window.innerHeight * 0.82);
         } else {
             H = Math.max(600, Math.round(W * 0.65));
         }
@@ -624,16 +617,28 @@
 
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-        initParticles();
-
-        if (window.innerWidth < 768) {
-            autoFit();
+        // On mobile: graph is rendered into a virtual space MOBILE_VW× wider and
+        // MOBILE_VH× taller than the canvas. scale=1 — the virtual multipliers do
+        // the spacing work. Start centred on the graph's horizontal midpoint so
+        // entry nodes peek in from the left and leadership from the right.
+        if (isMobile) {
+            scale = 1;
+            // Graph x midpoint: fx≈0.475 in virtual space → 0.475 * W * MOBILE_VW
+            // We want that at canvas centre (W/2)
+            offsetX = W / 2 - 0.475 * W * MOBILE_VW;
+            // Pin graph top (fy≈0.12) just below column labels
+            const labelHeight = 30;
+            offsetY = labelHeight - 0.12 * H * MOBILE_VH;
         }
+
+        initParticles();
     }
 
     function nodeXY(id) {
         const [fx, fy] = positions[id];
-        return { x: fx * W * scale + offsetX, y: fy * H * scale + offsetY };
+        const vw = isMobileLayout ? W * MOBILE_VW : W;
+        const vh = isMobileLayout ? H * MOBILE_VH : H;
+        return { x: fx * vw * scale + offsetX, y: fy * vh * scale + offsetY };
     }
 
     function hitTest(sx, sy) {
@@ -876,9 +881,9 @@
     let initialScale = 1;
 
     canvas.addEventListener('touchstart', e => {
+        e.preventDefault(); // Prevent page scroll
 
         if (e.touches.length === 1) {
-            // Single finger drag
             isDragging = true;
             _tMoved = false;
             dragStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
@@ -886,7 +891,6 @@
         }
 
         if (e.touches.length === 2) {
-            // Pinch zoom start
             initialDistance = Math.hypot(
                 e.touches[0].clientX - e.touches[1].clientX,
                 e.touches[0].clientY - e.touches[1].clientY
@@ -895,9 +899,10 @@
             isDragging = false;
         }
 
-    }, { passive: true });
+    }, { passive: false });
 
     canvas.addEventListener('touchmove', e => {
+        e.preventDefault(); // Prevent page scroll
 
         if (e.touches.length === 1 && isDragging) {
             _tMoved = true;
@@ -915,9 +920,10 @@
             scale = Math.min(4, Math.max(0.3, initialScale * zoomFactor));
         }
 
-    }, { passive: true });
+    }, { passive: false });
 
     canvas.addEventListener('touchend', e => {
+        e.preventDefault(); // Prevent page scroll / tap events bubbling
 
         if (!_tMoved && e.changedTouches.length === 1) {
             const t = e.changedTouches[0];
@@ -929,7 +935,7 @@
         isDragging = false;
         initialDistance = null;
 
-    }, { passive: true });
+    }, { passive: false });
 
     // ─── PANEL ─────────────────────────────────────────────────────────────────
     const panel = document.getElementById('infoPanel');
